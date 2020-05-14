@@ -20,20 +20,12 @@ class Model():
 
     def predict(self, data):
         tool_chain = self.get_model()
-        # 使用相同参数进行向量化
-        data = tool_chain[0].transform(data)
-        # 使用相同参数进行降维
-        data = tool_chain[1].transform(data)
         # 使用训练好模型进行预测
-        data = tool_chain[2].predict(data)
+        data = tool_chain.predict(data)
         return data
 
     def test_all(self):
         tool_chain = self.get_model()
-        # 使用相同参数进行向量化
-        data = tool_chain[0].transform(self.x_test)
-        # 使用相同参数进行降维
-        data = tool_chain[1].transform(data)
         # 使用训练好模型进行预测
         y_predict = tool_chain[2].predict(data)
 
