@@ -5,7 +5,7 @@ from Framework.Common.FileProcess import file_process
 class globalData():
     current_work_dir = os.path.dirname(__file__)
     fileName = current_work_dir + '/data/model.pkl'
-
+ 
 class Model():
     def __init__(self, x_test, y_test):
         self.x_test = x_test

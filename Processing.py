@@ -16,5 +16,5 @@ class Processor():
     # 标签数据加工
     def input_y(self, label):
         # 标签数据加工处理
-        return label
+        return label 
     

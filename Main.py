@@ -10,7 +10,7 @@ x_data,y_data=dataSet.fetch_next_test()
 model=Model(x_data,y_data)
 # 查看数据空间分布
 # dataSet.VisualizeSourceData('scatter_3d');
-
+ 
 # 初始化模型库
 fs=feature_selection(None,None)
 
