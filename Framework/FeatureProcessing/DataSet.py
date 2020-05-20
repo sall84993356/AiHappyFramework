@@ -27,16 +27,23 @@ class DataSet():
         self.processClass = getattr(model, className)  # 找到模块中的属性
 
         self.X, self.y = self.processClass().get_data()
-
-        globalData.data_size = len(self.X)
+        self.ProcessTrainParam()
         print('DataSet init data')
 
     def TrainTestSplit(self):
         d_split = data_split(self.X, self.y)
         self.X, self.x_test, self.y, self.y_test = d_split.KFold()
+        self.ProcessTrainParam()
         print('train test split :')
         print(len(self.X))
         print(len(self.x_test))
+    def ProcessTrainParam(self):
+        globalData.data_size = len(self.X)
+        self.epoch=globalData.data_size//self.batch_size
+        check_num=globalData.data_size%self.batch_size
+        if check_num>0:
+            self.epoch+=1
+        
 
     # 训练初始数据可视化（简要）
     def VisualizeSourceData(self, show_type):
@@ -61,6 +68,7 @@ class DataSet():
             # 获取数据的数量
             fetch_num = self.batch_size * globalData.use_times
             fetch_end_num = self.batch_size * (globalData.use_times + 1)
+
             # 处理X与y获取的批次数据
             batch_x = self.X[fetch_num:fetch_end_num]
             batch_y = self.y[fetch_num:fetch_end_num]

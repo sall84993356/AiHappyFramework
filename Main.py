@@ -22,10 +22,6 @@ for step in range(dataSet.get_step()):
     print(len(X_train))
     print(len(label))
     y,method= class_function.Train_Knn(3,x_data)
-    # print('X_train size:')
-    # print(len(X_train))
-    # print('-------------------------')
-
 
     #保存模型
     model.save_model(method)
