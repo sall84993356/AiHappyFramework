@@ -11,12 +11,12 @@ class data_split:
                                                             test_size=test_size,
                                                             random_state=0)
         return X_train, X_test, y_train, y_test
-    def KFold(self):
+    def KFold(self,n_splits_number=6):
         X_train=[] 
         X_test=[] 
         y_train=[] 
         y_test=[]
-        kf = KFold(n_splits=6,shuffle=True,random_state=0)
+        kf = KFold(n_splits=n_splits_number,shuffle=True,random_state=0)
         for train_index, test_index in kf.split(self.feature_data):
             print('train_index', train_index, 'test_index', test_index)
         for index in train_index:

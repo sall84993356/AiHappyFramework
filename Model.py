@@ -27,7 +27,7 @@ class Model():
     def test_all(self):
         tool_chain = self.get_model()
         # 使用训练好模型进行预测
-        y_predict = tool_chain[2].predict(data)
+        y_predict = tool_chain.predict(self.x_test)
 
         print("TEST acc:", np.sum(y_predict==self.y_test)/len(self.y_test))
         
