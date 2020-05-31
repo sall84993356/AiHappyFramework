@@ -8,6 +8,7 @@ class globalData():
     data_size = 0
     use_times = 0
 
+
 class DataSet():
     def __init__(self, batch_size, epoch):
         print("DataSet init")
@@ -32,18 +33,18 @@ class DataSet():
 
     def TrainTestSplit(self):
         d_split = data_split(self.X, self.y)
-        self.X, self.x_test, self.y, self.y_test = d_split.KFold()
+        self.X, self.x_test, self.y, self.y_test = d_split.RandomSplit(0.1)
         self.ProcessTrainParam()
         print('train test split :')
-        print(len(self.X))
-        print(len(self.x_test))
+        print(self.y)
+        print(self.y_test)
+
     def ProcessTrainParam(self):
         globalData.data_size = len(self.X)
-        self.epoch=globalData.data_size//self.batch_size
-        check_num=globalData.data_size%self.batch_size
-        if check_num>0:
-            self.epoch+=1
-        
+        self.epoch = globalData.data_size // self.batch_size
+        check_num = globalData.data_size % self.batch_size
+        if check_num > 0:
+            self.epoch += 1
 
     # 训练初始数据可视化（简要）
     def VisualizeSourceData(self, show_type):
@@ -60,10 +61,13 @@ class DataSet():
             digram_show.show_scatter_3d([x[0] for x in X_data], y_data,
                                         [x[1] for x in X_data])
 
+    def fetch_all_data(self):
+        return self.X, self.y
+
     # 获取一批训练数据
     def fetch_next_batch(self):
         if self.batch_size >= globalData.data_size:
-            return self.data_process(self.X,self.y)
+            return self.data_process(self.X, self.y)
         else:
             # 获取数据的数量
             fetch_num = self.batch_size * globalData.use_times
@@ -73,16 +77,16 @@ class DataSet():
             batch_x = self.X[fetch_num:fetch_end_num]
             batch_y = self.y[fetch_num:fetch_end_num]
             globalData.use_times = globalData.use_times + 1
-            return self.data_process(batch_x,batch_y)
+            return self.data_process(batch_x, batch_y)
 
-    def data_process(self,x,y):
+    def data_process(self, x, y):
         x_data = self.processClass().input_x(x)
         y_data = self.processClass().input_y(y)
-        return x_data,y_data
+        return x_data, y_data
 
     def fetch_next_test(self):
-        x_data,y_data=self.data_process(self.x_test, self.y_test)
-        return x_data,y_data
+        x_data, y_data = self.data_process(self.x_test, self.y_test)
+        return x_data, y_data
 
     # 获取当前数据执行批次
     def get_step(self):

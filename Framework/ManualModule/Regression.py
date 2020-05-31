@@ -1,7 +1,8 @@
 import random
 
+
 class Regression():
-    def training_sgd_fit(self, x, y, alpha,theta_array):
+    def training_sgd_fit(self, x, y, alpha, theta_array):
         diff = [0, 0]
         error1 = 0
         m = len(x)
@@ -36,15 +37,16 @@ class Regression():
         error1 = 0
         # 此处error为一个相对的Error值。
         for i in range(m):
-            error1 += (y[i] - (theta0 * 1 + theta1 * x[i][0] + theta2 * x[i][1]))**2
+            error1 += (y[i] -
+                       (theta0 * 1 + theta1 * x[i][0] + theta2 * x[i][1]))**2
 
         error1 = error1 / m
-        return error1,(theta0,theta1,theta2)
+        return error1, (theta0, theta1, theta2)
 
-    def training_bgd_fit(self, x, y, alpha,theta_array):
-        diff = [0,0]
+    def training_bgd_fit(self, x, y, alpha, theta_array):
+        diff = [0, 0]
         error1 = 0
-        error0 =0
+        error0 = 0
         m = len(x)
 
         #init the parameters to zero
@@ -59,7 +61,7 @@ class Regression():
         error_array = []
         epoch_array = []
         #calculate the parameters
-        # 线性回归：hi(x) = theta0 + theta1 * x[i][1] + theta2 * x[i][2]  
+        # 线性回归：hi(x) = theta0 + theta1 * x[i][1] + theta2 * x[i][2]
         # 损失函数：(1/2) 累加 * (y - h(x)) ^ 2
         # theta = theta - 累和(  - alpha * (y - h(x))x )
         # 1. 随机梯度下降算法在迭代的时候，每迭代一个新的样本，就会更新一次所有的theta参数。
@@ -67,15 +69,15 @@ class Regression():
         # 2. 批梯度下降算法在迭代的时候，是完成所有样本的迭代后才会去更新一次theta参数
         for i in range(m):
             #begin batch gradient descent
-            diff[0] = y[i]-( theta0 + theta1 * x[i][0] + theta2 * x[i][1] )
-            sum0 = sum0 - ( -alpha * diff[0]* 1)
-            sum1 = sum1 - ( -alpha * diff[0]* x[i][0])
-            sum2 = sum2 - ( -alpha * diff[0]* x[i][1])
+            diff[0] = y[i] - (theta0 + theta1 * x[i][0] + theta2 * x[i][1])
+            sum0 = sum0 - (-alpha * diff[0] * 1)
+            sum1 = sum1 - (-alpha * diff[0] * x[i][0])
+            sum2 = sum2 - (-alpha * diff[0] * x[i][1])
             #end  batch gradient descent
-            
-        theta0 = theta0 + sum0 / m;
-        theta1 = theta1 + sum1 / m;
-        theta2 = theta2 + sum2 / m;
+
+        theta0 = theta0 + sum0 / m
+        theta1 = theta1 + sum1 / m
+        theta2 = theta2 + sum2 / m
 
         sum0 = 0
         sum1 = 0
@@ -83,6 +85,7 @@ class Regression():
         #calculate the cost function
         error1 = 0
         for i in range(m):
-            error1 += ( y[i]-( theta0 + theta1 * x[i][0] + theta2 * x[i][1] ) )**2               
+            error1 += (y[i] -
+                       (theta0 + theta1 * x[i][0] + theta2 * x[i][1]))**2
         error1 = error1 / m
-        return error1,(theta0,theta1,theta2)
+        return error1, (theta0, theta1, theta2)

@@ -4,8 +4,8 @@ import codecs
 import jieba
 from sklearn.externals import joblib
 
+
 class file_process():
-    
     def save_model_group(self, file, data_list):
         joblib.dump(data_list, file)
 
