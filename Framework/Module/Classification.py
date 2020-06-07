@@ -4,12 +4,12 @@ from sklearn import neighbors
 from sklearn import linear_model
 from sklearn import svm
 from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
-from Framework.Module.MethodInfo import MethodInfo
+from Framework.Module.MethodInfo import method_info
 
 
-class Classification:
+class classification:
     def __init__(self):
-        self.coreMethod = MethodInfo()
+        self.coreMethod = method_info()
         print("Classification Init")
 
     def train_random_forest(self, x_train, y_train, depth, n_es):
@@ -23,7 +23,7 @@ class Classification:
         method.fit(x_train, y_train)
         print('train score:')
         print(method.score(x_train, y_train))
-        self.coreMethod.SetMothod(method)
+        self.coreMethod.set_mothod(method)
         return method
 
     def train_gradient_boosting_classifier(self, x_train, y_train):
@@ -32,7 +32,7 @@ class Classification:
             self.coreMethod.method is not None
         ) else GradientBoostingClassifier()
         method.fit(x_train, y_train)
-        self.coreMethod.SetMothod(method)
+        self.coreMethod.set_mothod(method)
         return method
 
     def train_logistic_regression(self, x_train, y_train):
@@ -44,7 +44,7 @@ class Classification:
         method.fit(x_train, y_train)
         print('train score:')
         print(method.score(x_train, y_train))
-        self.coreMethod.SetMothod(method)
+        self.coreMethod.set_mothod(method)
         return method
 
     def train_knn(self, x_train, y_train, neighbors_num):
@@ -57,7 +57,7 @@ class Classification:
         method.fit(x_train, y_train)
         print('train score:')
         print(method.score(x_train, y_train))
-        self.coreMethod.SetMothod(method)
+        self.coreMethod.set_mothod(method)
         return method
 
     def train_svm(self, x_train, y_train):
@@ -82,7 +82,7 @@ class Classification:
         method.fit(x_train, y_train)
         print('train score:')
         print(method.score(x_train, y_train))
-        self.coreMethod.SetMothod(method)
+        self.coreMethod.set_mothod(method)
         return method
 
     def train_gaussian_nb(self, x_train, y_train):
@@ -92,7 +92,7 @@ class Classification:
         method.fit(x_train, y_train)
         print('train score:')
         print(method.score(x_train, y_train))
-        self.coreMethod.SetMothod(method)
+        self.coreMethod.set_mothod(method)
         return method
 
     def train_multinomial_nb(self, x_train, y_train):
@@ -102,7 +102,7 @@ class Classification:
         method.fit(x_train, y_train)
         print('train score:')
         print(method.score(x_train, y_train))
-        self.coreMethod.SetMothod(method)
+        self.coreMethod.set_mothod(method)
         return method
 
     def train_bernoulli_nb(self, x_train, y_train):
@@ -112,5 +112,5 @@ class Classification:
         method.fit(x_train, y_train)
         print('train score:')
         print(method.score(x_train, y_train))
-        self.coreMethod.SetMothod(method)
+        self.coreMethod.set_mothod(method)
         return method

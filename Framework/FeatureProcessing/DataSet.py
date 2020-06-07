@@ -1,6 +1,5 @@
 import os
 import sys
-from ..Common.BasicVisualize import digram_show
 from .DataSplit import data_split
 
 
@@ -9,57 +8,42 @@ class globalData():
     use_times = 0
 
 
-class DataSet():
+class data_set:
     def __init__(self, batch_size, epoch):
-        print("DataSet init")
+        print("data_set init")
         self.batch_size = batch_size
         self.epoch = epoch
-        self.DataInit()
-        self.TrainTestSplit()
+        self.data_init()
+        self.train_test_split()
 
     # 初始化函数
-    def DataInit(self):
+    def data_init(self):
         path = os.path.join(sys.path[0])
         print("test path:" + path)
         # 反射，调用processer模块，获取数据方法get_data
         moduleName = 'Processing'  # 要引入的模块
-        className = "Processor"  # 要使用的方法
+        className = "processor"  # 要使用的方法
         model = __import__(moduleName, globals=path)  # 导入模块
-        self.processClass = getattr(model, className)  # 找到模块中的属性
+        self.process_class = getattr(model, className)  # 找到模块中的属性
 
-        self.X, self.y = self.processClass().get_data()
-        self.ProcessTrainParam()
+        self.X, self.y = self.process_class().get_data()
+        self.process_train_param()
         print('DataSet init data')
 
-    def TrainTestSplit(self):
+    def train_test_split(self):
         d_split = data_split(self.X, self.y)
-        self.X, self.x_test, self.y, self.y_test = d_split.RandomSplit(0.1)
-        self.ProcessTrainParam()
+        self.X, self.x_test, self.y, self.y_test = d_split.random_split(0.1)
+        self.process_train_param()
         print('train test split :')
         print(self.y)
         print(self.y_test)
 
-    def ProcessTrainParam(self):
+    def process_train_param(self):
         globalData.data_size = len(self.X)
         self.epoch = globalData.data_size // self.batch_size
         check_num = globalData.data_size % self.batch_size
         if check_num > 0:
             self.epoch += 1
-
-    # 训练初始数据可视化（简要）
-    def VisualizeSourceData(self, show_type):
-        X_data, y_data = self.X, self.y
-        if show_type == 'plot':
-            digram_show.show_plot(X_data, y_data)
-        elif show_type == 'scatter':
-            digram_show.show_scatter(X_data, y_data)
-        elif show_type == 'plot_3d':
-            print(type(X_data))
-            digram_show.show_plot_3d([x[0] for x in X_data], y_data,
-                                     [x[1] for x in X_data])
-        elif show_type == 'scatter_3d':
-            digram_show.show_scatter_3d([x[0] for x in X_data], y_data,
-                                        [x[1] for x in X_data])
 
     def fetch_all_data(self):
         return self.X, self.y
@@ -80,8 +64,8 @@ class DataSet():
             return self.data_process(batch_x, batch_y)
 
     def data_process(self, x, y):
-        x_data = self.processClass().input_x(x)
-        y_data = self.processClass().input_y(y)
+        x_data = self.process_class().input_x(x)
+        y_data = self.process_class().input_y(y)
         return x_data, y_data
 
     def fetch_next_test(self):

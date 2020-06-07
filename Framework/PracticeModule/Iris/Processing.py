@@ -4,18 +4,18 @@ from Framework.PracticeModule.DataFactory import data_factory
 from Framework.FeatureProcessing.Explore import data_statistics
 from Framework.Common.ImageVisualize import image_show
 
+
 class processor():
+
     # 初始数据获取
     def get_data(self):
-        digits = data_factory().get_digits()
-        fe_data = digits.data
-        label = digits.target
-        # images = digits.images
-        label_onehot = data_standard().one_hot(label.reshape((label.shape[0]),1))
-        # print(label_onehot)
+        iris = data_factory().get_iris()
+        fe_data = iris.data
+        label = iris.target
+        # standard_info = data_standard(fe_data[0], label)
         # # 标准化
         # x_new = standard_info.StandardScaler()
-        return fe_data, label_onehot
+        return fe_data, label
 
     # 特征数据加工
     def input_x(self, data_X):
@@ -30,5 +30,6 @@ class processor():
 
 if __name__ == '__main__':
     fe_data, label = processor().get_data()
+    print(fe_data)
     dataAnalysis = data_statistics(fe_data, label)
     dataAnalysis.whole_info()

@@ -1,7 +1,7 @@
 import random
 
 
-class Regression():
+class regression:
     def training_sgd_fit(self, x, y, alpha, theta_array):
         diff = [0, 0]
         error1 = 0

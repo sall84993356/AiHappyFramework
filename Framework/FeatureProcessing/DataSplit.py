@@ -6,7 +6,7 @@ class data_split:
         self.feature_data = feature_data
         self.label_data = label_data
 
-    def RandomSplit(self, test_size):
+    def random_split(self, test_size):
         X_train, X_test, y_train, y_test = train_test_split(
             self.feature_data,
             self.label_data,
@@ -14,7 +14,7 @@ class data_split:
             random_state=2)
         return X_train, X_test, y_train, y_test
 
-    def KFold(self, n_splits_number=6):
+    def kfold(self, n_splits_number=6):
         X_train = []
         X_test = []
         y_train = []

@@ -2,17 +2,17 @@ import numpy as np
 import pandas as pd
 
 
-class DataStatistics():
+class data_statistics():
     def __init__(self, data_x, data_y):
-        print('DataStatistics.__init__')
+        print('data_statistics.__init__')
         self.data_x = pd.DataFrame(data_x)
         self.data_y = pd.DataFrame(data_y)
 
     def whole_info(self):
-        self.DataDescribe(self.data_x)
-        self.DataDescribe(self.data_y)
+        self.data_describe(self.data_x)
+        self.data_describe(self.data_y)
 
-    def DataDescribe(self, data_show):
+    def data_describe(self, data_show):
         print('shape:')
         print(np.shape(data_show))
         print('-----------------------------')

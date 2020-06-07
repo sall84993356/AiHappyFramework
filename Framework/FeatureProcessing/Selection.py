@@ -11,7 +11,7 @@ class feature_selection:
         self.label_data = label_data
 
     # 方差
-    def Filter_VarianceThreshold(self, threshold_num):
+    def filter_variance_threshold(self, threshold_num):
         selector = VarianceThreshold(threshold=threshold_num).fit(
             self.feature_data, self.label_data)
         data = selector.transform(self.feature_data)
@@ -20,7 +20,7 @@ class feature_selection:
         return data
 
     # 卡方
-    def Filter_SelectKBest(self, k_num):
+    def filter_select_kbest(self, k_num):
         print(self.label_data)
         selector = SelectKBest(chi2,
                                k=k_num).fit(self.feature_data,
@@ -32,7 +32,7 @@ class feature_selection:
         print(selector.get_support(indices=True))
         return data
 
-    def Wrapper_RFE(self, k_num):
+    def wrapper_rfe(self, k_num):
         selector = RFE(estimator=LogisticRegression(penalty='l2',
                                                     C=5.0,
                                                     solver='liblinear'),
@@ -44,7 +44,7 @@ class feature_selection:
         # print(data == self.feature_data)
         return data
 
-    def Embedded_LR(self, c_num):
+    def embedded_lr(self, c_num):
         selector = SelectFromModel(LogisticRegression(
             penalty="l1", C=0.1)).fit(self.feature_data,
                                       self.label_data.astype('int'))
@@ -53,7 +53,7 @@ class feature_selection:
         # print(selector.scores)
         return data
 
-    def Embedded_GBDT(self):
+    def embedded_gbdt(self):
         selector = SelectFromModel(GradientBoostingClassifier()).fit(
             self.feature_data, self.label_data.astype('int'))
         data = selector.transform(self.feature_data)
@@ -62,7 +62,7 @@ class feature_selection:
         return data
 
     # 文本特征选择
-    def Count_Vectorizer(self, data_text):
+    def count_vectorizer(self, data_text):
         selector = CountVectorizer(max_df=0.95,
                                    token_pattern=r"(?u)\b\w+\b",
                                    min_df=2,
@@ -71,7 +71,7 @@ class feature_selection:
         return data, selector
 
     # 文本降维LDA
-    def Latent_Dirichlet_Allocation(self, data_text):
+    def latent_dirichlet_allocation(self, data_text):
         selector = LatentDirichletAllocation(n_components=6)
         data = selector.fit_transform(data_text)
         return data, selector

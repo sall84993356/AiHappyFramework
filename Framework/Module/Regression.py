@@ -1,3 +1,3 @@
 
-class Regression():
+class regression:
     
